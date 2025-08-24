@@ -1,0 +1,72 @@
+# Geo-Financial Intelligence Platform Configuration
+# =================================================
+
+# Hexagonal Grid Configuration
+grid:
+  resolution: 9  # H3 resolution level (9 ≈ 174m edge length)
+  center_lat: -30.0331  # Porto Alegre center
+  center_lon: -51.2300
+  buffer_km: 5.0  # Buffer around main area
+
+# Data Pipeline Configuration
+data_pipeline:
+  cache_dir: "data/raw"
+  processed_dir: "data/processed"
+  ibge_api_base: "https://servicodados.ibge.gov.br/api/v1"
+  osm_network_type: "drive"
+  synthetic_data_seed: 42
+
+# Feature Engineering Configuration
+features:
+  neighbor_radius: 2  # H3 k-ring radius for neighborhood analysis
+  standardize_features: true
+  min_merchants_for_competition: 3
+  poi_categories:
+    - "restaurant"
+    - "cafe" 
+    - "bank"
+    - "atm"
+    - "pharmacy"
+    - "hospital"
+    - "school"
+    - "university"
+    - "shopping_centre"
+    - "supermarket"
+    - "fuel"
+
+# Credit Risk Model Configuration
+credit_model:
+  test_size: 0.2
+  random_state: 42
+  cv_folds: 5
+  hyperparameter_tuning: true
+  feature_selection: true
+  shap_analysis: true
+  model_output_dir: "models/credit_risk"
+
+# Merchant Acquisition Configuration
+acquisition:
+  target_categories:
+    - "restaurant"
+    - "retail"
+    - "services"
+    - "grocery"
+  min_opportunity_score: 0.3
+  max_competition_density: 0.8
+  roi_threshold: 2.0
+  weights:
+    market_penetration: 0.3
+    competition: 0.25
+    accessibility: 0.2
+    economic_potential: 0.25
+
+# Visualization Configuration
+visualization:
+  map_center:
+    lat: -30.0331
+    lon: -51.2300
+  default_zoom: 11
+  color_schemes:
+    opportunity: "RdYlGn"
+    risk: "RdBu_r"
+    default: "viridis"

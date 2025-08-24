@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # Main Geo-Financial Intelligence Platform
+  geo-financial-platform:
+    build: .
+    container_name: geo-financial-platform
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./logs:/app/logs
+    environment:
+      - PYTHONPATH=/app/src
+      - PYTHONUNBUFFERED=1
+    networks:
+      - geo-network
+    depends_on:
+      - postgres
+    
+  # PostgreSQL with PostGIS for spatial data storage
+  postgres:
+    image: postgis/postgis:14-3.2
+    container_name: geo-postgres
+    environment:
+      POSTGRES_DB: geo_financial
+      POSTGRES_USER: geo_user
+      POSTGRES_PASSWORD: geo_password
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - geo-network
+
+  # Redis for caching and session storage
+  redis:
+    image: redis:7-alpine
+    container_name: geo-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - geo-network
+    command: redis-server --appendonly yes
+
+  # Jupyter Lab for interactive analysis
+  jupyter:
+    build: .
+    container_name: geo-jupyter
+    command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONPATH=/app/src
+      - JUPYTER_ENABLE_LAB=yes
+    networks:
+      - geo-network
+    depends_on:
+      - postgres
+      - redis
+
+  # Optional: MinIO for object storage (S3-compatible)
+  minio:
+    image: minio/minio:latest
+    container_name: geo-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    command: server /data --console-address ":9001"
+    networks:
+      - geo-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+
+networks:
+  geo-network:
+    driver: bridge
