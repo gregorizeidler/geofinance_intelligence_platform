@@ -44,7 +44,7 @@
 
 | 🎯 **Model Performance** | ⚡ **API Speed** | 🌍 **Coverage** | 🔧 **Features** |
 |:------------------------:|:---------------:|:---------------:|:---------------:|
-| ![AUC](https://img.shields.io/badge/AUC-0.892-brightgreen?style=for-the-badge&logo=trending-up) | ![Speed](https://img.shields.io/badge/Response-<500ms-blue?style=for-the-badge&logo=zap) | ![Coverage](https://img.shields.io/badge/Area-1000km²-purple?style=for-the-badge&logo=map) | ![Features](https://img.shields.io/badge/Features-50+-orange?style=for-the-badge&logo=settings) |
+| ![AUC](https://img.shields.io/badge/AUC-0.892-brightgreen?style=for-the-badge&logo=trending-up) | ![Speed](https://img.shields.io/badge/Response-<500ms-blue?style=for-the-badge&logo=zap) | ![Coverage](https://img.shields.io/badge/Area-1000km²-purple?style=for-the-badge&logo=map) | ![Features](https://img.shields.io/badge/Features-65+-orange?style=for-the-badge&logo=settings) |
 
 | 🚀 **Platform Status** | 📈 **Uptime** | 🔄 **Processing** | ⭐ **Accuracy** |
 |:----------------------:|:-------------:|:----------------:|:---------------:|
@@ -1073,8 +1073,10 @@ class GeoFinanceAPI {
 | 🚇 **Infrastructure** | 10 features | Transportation, connectivity |
 | 💰 **Financial** | 8 features | Transaction patterns, risk |
 | 🗺️ **Spatial** | 7 features | Neighborhood effects, clusters |
+| 🛰️ **Satellite** | 6 features | Urban density, vegetation, changes |
+| 📱 **Mobile** | 7 features | Activity patterns, movement |
 
-**Total: 52 spatial intelligence features per location**
+**Total: 65 spatial intelligence features per location**
 
 </div>
 

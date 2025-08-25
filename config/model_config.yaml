@@ -16,6 +16,33 @@ data_pipeline:
   osm_network_type: "drive"
   synthetic_data_seed: 42
 
+  # New Satellite Data Configuration
+  satellite:
+    enabled: true
+    cache_dir: "data/raw/satellite"
+    landsat:
+      enabled: true
+      start_date: "2024-01-01"
+      end_date: "2025-01-01"
+      cloud_cover_max: 20
+    sentinel:
+      enabled: true
+      start_date: "2024-01-01"
+      end_date: "2025-01-01"
+      cloud_cover_max: 20
+  
+  # New Mobile Data Configuration
+  mobile:
+    enabled: true
+    cache_dir: "data/raw/mobile"
+    min_points_per_hex: 10
+    time_periods:
+      morning: [6, 10]
+      midday: [10, 14]
+      afternoon: [14, 18]
+      evening: [18, 22]
+      night: [22, 6]
+
 # Feature Engineering Configuration
 features:
   neighbor_radius: 2  # H3 k-ring radius for neighborhood analysis
@@ -33,6 +60,25 @@ features:
     - "shopping_centre"
     - "supermarket"
     - "fuel"
+
+  # New Satellite Features Configuration
+  satellite_features:
+    - "urban_density"
+    - "vegetation_index"
+    - "built_up_index"
+    - "vegetation_density"
+    - "water_index"
+    - "urban_change"
+
+  # New Mobile Features Configuration
+  mobile_features:
+    - "activity_density"
+    - "user_diversity"
+    - "morning_activity"
+    - "midday_activity"
+    - "afternoon_activity"
+    - "evening_activity"
+    - "night_activity"
 
 # Credit Risk Model Configuration
 credit_model:
